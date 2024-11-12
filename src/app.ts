@@ -9,17 +9,32 @@ import { connectToMongo } from "./config/db";
 
 const PORT = process.env.PORT || 3000;
 
+import http from "http";
+import { Server } from "socket.io";
+import { getCandidateList } from "./services/candidates";
+
 const app = express();
-connectToMongo()
+connectToMongo();
+
+const server = http.createServer(app);
+
+export const io = new Server(server, {
+  cors: {
+    origin: "*", // כתובת הלקוח
+    methods: "*",
+  },
+});
+import "./socket/io";//מייבא את הקובץ של הסוקטים
 
 app.use(express.json());
 app.use(cors());
 
+io.emit("voteUpdate", getCandidateList); //?
 app.use("/api/users", usersController);
 app.use("/api/admin", adminController);
 app.use("/api/votes", votesController);
 app.use("/api/candidates", candidatesController);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server started, Visit "http://localhost:${PORT}"`);
 });
