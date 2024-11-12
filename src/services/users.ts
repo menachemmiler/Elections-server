@@ -48,14 +48,14 @@ export const createNewUser = async (user: RegisterDto) => {
 };
 
 export const profileService = async (user: {user_id: string}) => {
-  console.log({ user });
+  // console.log({ user });
   try {
     if (!user) {
       throw new Error("user is required!");
     }
-    console.log({ user });
+    // console.log({ user });
     const findById = await User.findOne({ _id: user.user_id });
-    console.log({ findById });
+    // console.log({ findById });
     if (!findById) throw new Error("user not found!");
     return findById;
   } catch (err: any) {
