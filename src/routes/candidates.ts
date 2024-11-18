@@ -3,11 +3,11 @@ import { getCandidateList, initDatabase } from "../services/candidates";
 
 export const sid = async (req: Request, res: Response) => {
   try {
-    await initDatabase();
-    res.sendStatus(201);
+    const resulte = await initDatabase();
+    res.status(201).json(resulte);
   } catch (err) {
     console.log(err);
-    res.sendStatus(400);
+    res.status(400);
   }
 };
 
