@@ -1,10 +1,11 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import usersController from "./controllers/users";
 import adminController from "./controllers/admin";
 import votesController from "./controllers/votes";
 import candidatesController from "./controllers/candidates";
+import { connectToMongo } from "./config/db";
 dotenv.config({
   path: process.env.NODE_ENV == "stg" ? "./.env.staging" : "./.env",
 });
@@ -15,7 +16,6 @@ import http from "http";
 import { Server } from "socket.io";
 
 export const app = express();
-import { connectToMongo } from "./config/db";
 connectToMongo();
 
 export const server = http.createServer(app);
@@ -31,15 +31,10 @@ import "./socket/io"; //מייבא את הקובץ של הסוקטים
 app.use(express.json());
 app.use(cors());
 
-// io.emit("voteUpdate", getCandidateList); //?
 app.use("/api/users", usersController);
 app.use("/api/admin", adminController);
 app.use("/api/votes", votesController);
 app.use("/api/candidates", candidatesController);
-
-app.get("/ping", (req: Request, res: Response) => {
-  res.status(200).send("ping");
-});
 
 server.listen(PORT, () => {
   console.log(`Server started, Visit "http://localhost:${PORT}"`);

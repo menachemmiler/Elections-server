@@ -30,7 +30,7 @@
   "scripts": {
     "dev:staging": "cross-env NODE_ENV=stg nodemon",
     "dev:production": "cross-env NODE_ENV=pro nodemon",
-    "test": "jest dist/app",
+    "test": "cross-env NODE_ENV=stg jest --verbose --maxWorkers=1 dist/",
     "build": "cross-env NODE_ENV=stg webpack --config build/webpack.config.js"
   },
   "author": "Meny",

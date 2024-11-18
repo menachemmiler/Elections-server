@@ -5,6 +5,9 @@ import jwt from "jsonwebtoken";
 
 export const userLogin = async (user: LoginDto) => {
   try {
+    const { password, username } = user;
+    if (!username || !password)
+      throw new Error("username & password is required!");
     const userFromDatabase = await User.findOne({
       username: user.username,
     }).lean();
@@ -47,7 +50,7 @@ export const createNewUser = async (user: RegisterDto) => {
   }
 };
 
-export const profileService = async (user: {user_id: string}) => {
+export const profileService = async (user: { user_id: string }) => {
   // console.log({ user });
   try {
     if (!user) {
