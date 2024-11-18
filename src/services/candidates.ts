@@ -43,7 +43,7 @@ export const getCandidateList = async () => {
         const list = await Candidate.find({})
         return list
     } catch (err) {
-        console.log(err)
+        // console.log(err)
         throw err
     }
 }

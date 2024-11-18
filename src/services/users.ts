@@ -59,7 +59,7 @@ export const profileService = async (user: {user_id: string}) => {
     if (!findById) throw new Error("user not found!");
     return findById;
   } catch (err: any) {
-    console.log(err);
+    // console.log(err);
     throw new Error(`${err.message}`);
   }
 };
