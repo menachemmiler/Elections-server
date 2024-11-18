@@ -1,19 +1,21 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
-import "dotenv/config";
+import dotenv from "dotenv";
 import usersController from "./controllers/users";
 import adminController from "./controllers/admin";
 import votesController from "./controllers/votes";
 import candidatesController from "./controllers/candidates";
-import { connectToMongo } from "./config/db";
+dotenv.config({
+  path: process.env.NODE_ENV == "stg" ? "./.env.staging" : "./.env",
+});
 
 const PORT = process.env.PORT || 3000;
 
 import http from "http";
 import { Server } from "socket.io";
-import { getCandidateList } from "./services/candidates";
 
 export const app = express();
+import { connectToMongo } from "./config/db";
 connectToMongo();
 
 export const server = http.createServer(app);
@@ -42,4 +44,3 @@ app.get("/ping", (req: Request, res: Response) => {
 server.listen(PORT, () => {
   console.log(`Server started, Visit "http://localhost:${PORT}"`);
 });
-
