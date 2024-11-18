@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import "dotenv/config";
 import usersController from "./controllers/users";
@@ -34,6 +34,11 @@ app.use("/api/users", usersController);
 app.use("/api/admin", adminController);
 app.use("/api/votes", votesController);
 app.use("/api/candidates", candidatesController);
+
+
+app.get("/ping", (req:Request, res: Response) => {
+  res.status(200).send("ping");
+})
 
 server.listen(PORT, () => {
   console.log(`Server started, Visit "http://localhost:${PORT}"`);
