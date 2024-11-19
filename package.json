@@ -24,7 +24,7 @@
   "scripts": {
     "dev": "nodemon dist/app"
   },
-  "author": "Me Yosi",
+  "author": "Meny",
   "license": "ISC",
   "description": ""
 }
